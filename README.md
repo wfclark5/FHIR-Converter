@@ -1,5 +1,37 @@
 # FHIR Converter
 
+Slightly modified with included bin templates to install without build errors.
+
+## Getting Started (MacOS) 
+
+1) Install dotnet-sdk for your system's architecture https://formulae.brew.sh/cask/dotnet-sdk
+
+Then run the following commands: 
+```
+dotnet add package Microsoft.AspNetCore.App.Ref --version 3.1.8
+dotnet add package Microsoft.NET.ILLink.Analyzers --version 7.0.100-1.23401.1
+cd src/Microsoft.Health.Fhir.Liquid.Converter.Tool
+dotnet build
+dotnet pack 
+dotnet publish --runtime osx-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+``` 
+
+3) Navigate to the newly-created directory 
+```
+cd bin/Release/net6.0/osx-x64
+```
+
+4) Now you should be able to use the tool with (https://github.com/microsoft/FHIR-Converter/tree/main?tab=readme-ov-file#using-command-line-tool):
+
+```
+.\Microsoft.Health.Fhir.Liquid.Converter.Tool.exe convert -d ./data/Templates/Hl7v2 -i ./data/SampleData/Hl7v2 -r "ADT_A01" -o ./data/output
+```
+
+5) Review ADT Conversion Directory: https://github.com/microsoft/FHIR-Converter/blob/main/docs/HL7v2-templates.md 
+
+
+
+
 FHIR Converter is an open source project that enables conversion of health data from legacy formats to FHIR.
 
 The first version of the FHIR Converter released to open source on Mar 6th, 2020. It used Handlebars template language and Javascript runtime. A new converter engine was released on Nov 13, 2020 that uses Liquid templating language and .Net runtime.
